@@ -83,5 +83,29 @@ describe('app routes', () => {
 
       expect(data.body).toEqual(expectation);
     });
+
+    test('ADDS one todo/task for one user', async() => {
+
+      const expectation = {
+        'id': 7,
+        'chore': 'walk the dog',
+        'completed': false,
+        'owner_id': 2
+      };
+
+      const data = await fakeRequest(app)
+        .post('/api/todos')
+        .send({
+          'chore': 'walk the dog',
+          'completed': false,
+        })
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
+
+
   });
 });
